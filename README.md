@@ -1,10 +1,10 @@
-# Haven - Domestic Violence Support Platform
+# SafeSpace - Domestic Violence Support Platform
 
 A production-grade, trauma-informed platform designed to support domestic violence victims with secure access to resources, risk assessment tools, community support, and specialist assistance.
 
 ## 🎯 Purpose
 
-Haven provides a safe, discrete, and accessible space for individuals experiencing domestic violence to:
+SafeSpace provides a safe, discrete, and accessible space for individuals experiencing domestic violence to:
 - Assess their safety with a validated risk assessment tool
 - Access verified resources and hotlines
 - Connect with specialists (lawyers, psychologists)

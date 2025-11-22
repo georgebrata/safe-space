@@ -10,7 +10,7 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Haven | Domestic Violence Support",
+  title: "SafeSpace | Domestic Violence Support",
   description: "A safe space for support and resources.",
   generator: "v0.app",
   icons: {

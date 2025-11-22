@@ -15,7 +15,7 @@ export default function SpecialistDashboard() {
       {/* Specialist Header */}
       <header className="bg-slate-900 text-white p-4">
         <div className="container mx-auto flex justify-between items-center">
-          <h1 className="font-bold text-lg">Haven Specialist Portal</h1>
+          <h1 className="font-bold text-lg">SafeSpace Specialist Portal</h1>
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon" className="text-white hover:bg-slate-800">
               <Bell className="h-5 w-5" />

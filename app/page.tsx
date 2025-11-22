@@ -10,8 +10,8 @@ export default function Home() {
       <header className="border-b bg-white sticky top-0 z-40">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2 text-primary font-bold text-xl">
-            <Shield className="h-8 w-8" />
-            <span>Haven</span>
+            <img src="./logo.png" alt="SafeSpace" className="h-8 w-8" />
+            <span>SafeSpace</span>
           </div>
           <nav className="hidden md:flex gap-6">
             <Link href="/resources" className="text-sm font-medium hover:text-primary">

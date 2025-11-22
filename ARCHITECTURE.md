@@ -1,8 +1,8 @@
-# Haven Platform - Technical Architecture
+# SafeSpace Platform - Technical Architecture
 
 ## System Overview
 
-Haven is a Single Page Application (SPA) built with Next.js 15 that provides domestic violence support services. The platform is designed with security, accessibility, and trauma-informed principles at its core.
+SafeSpace is a Single Page Application (SPA) built with Next.js 15 that provides domestic violence support services. The platform is designed with security, accessibility, and trauma-informed principles at its core.
 
 ## Architecture Layers
 
