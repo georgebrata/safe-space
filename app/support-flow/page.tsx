@@ -21,27 +21,26 @@ export default function SupportFlowPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-3 text-2xl">
               <ShieldAlert className={`h-8 w-8 ${riskLevel === "critical" ? "text-destructive" : "text-primary"}`} />
-              We recommend speaking with a specialist
+              Recomandăm să vorbești cu un specialist
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="text-lg text-muted-foreground">
-              Based on your answers, your situation shows signs of {riskLevel} risk. We have flagged this for our
-              specialist team.
+              Pe baza răspunsurilor tale, situația ta prezintă semne de risc {riskLevel === "critical" ? "critic" : riskLevel === "high" ? "ridicat" : "moderat"}. Am marcat acest lucru pentru echipa noastră de specialiști.
             </p>
 
             <div className="bg-secondary/30 p-4 rounded-lg space-y-2">
               <div className="flex items-center gap-2 text-sm font-medium">
                 <Check className="h-4 w-4 text-green-600" />
-                Case ID generated: #SAFE-2024-8821
+                ID caz generat: #SAFE-2024-8821
               </div>
               <div className="flex items-center gap-2 text-sm font-medium">
                 <Check className="h-4 w-4 text-green-600" />
-                Priority status assigned
+                Status de prioritate atribuit
               </div>
               <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
                 <UserCheck className="h-4 w-4" />
-                Waiting for specialist assignment...
+                Așteptăm atribuirea specialistului...
               </div>
             </div>
           </CardContent>
@@ -53,12 +52,12 @@ export default function SupportFlowPage() {
               <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
                 <MessageSquare className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="font-bold">Start Secure Chat</h3>
+              <h3 className="font-bold">Începe Chat Securizat</h3>
               <p className="text-sm text-muted-foreground">
-                Open a private, encrypted channel with a domestic violence specialist.
+                Deschide un canal privat și criptat cu un specialist în violență domestică.
               </p>
               <Link href="/chat/new" className="w-full">
-                <Button className="w-full">Open Chat</Button>
+                <Button className="w-full">Deschide Chat</Button>
               </Link>
             </CardContent>
           </Card>
@@ -68,12 +67,12 @@ export default function SupportFlowPage() {
               <div className="h-12 w-12 rounded-full bg-secondary flex items-center justify-center">
                 <PhoneCall className="h-6 w-6 text-secondary-foreground" />
               </div>
-              <h3 className="font-bold">Call Hotline</h3>
+              <h3 className="font-bold">Sună Linia de Ajutor</h3>
               <p className="text-sm text-muted-foreground">
-                Speak immediately with a counselor at the National Hotline.
+                Vorbește imediat cu un consilier la Linia Națională de Ajutor.
               </p>
               <Button variant="secondary" className="w-full" asChild>
-                <a href="tel:5551234">Call Now</a>
+                <a href="tel:0800500333">Sună Acum</a>
               </Button>
             </CardContent>
           </Card>

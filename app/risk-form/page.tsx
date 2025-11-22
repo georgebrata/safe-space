@@ -36,7 +36,7 @@ export default function RiskFormPage() {
   }
 
   if (isComplete) {
-    return <div className="p-8 text-center">Analyzing results...</div>
+    return <div className="p-8 text-center">Analizăm rezultatele...</div>
   }
 
   return (
@@ -54,7 +54,7 @@ export default function RiskFormPage() {
               <div className="h-full bg-primary transition-all duration-300" style={{ width: `${progress}%` }} />
             </div>
             <p className="text-xs text-muted-foreground mt-2 text-right">
-              Question {currentStep + 1} of {RISK_QUESTIONS.length}
+              Întrebarea {currentStep + 1} din {RISK_QUESTIONS.length}
             </p>
           </div>
         </div>
@@ -76,7 +76,7 @@ export default function RiskFormPage() {
             ))}
           </CardContent>
           <CardFooter className="justify-center pt-6">
-            <p className="text-sm text-muted-foreground">Your answers are private and autosaved.</p>
+            <p className="text-sm text-muted-foreground">Răspunsurile tale sunt private și salvate automat.</p>
           </CardFooter>
         </Card>
       </div>

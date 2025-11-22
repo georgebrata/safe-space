@@ -1,17 +1,26 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Inter, JetBrains_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { ReduxProvider } from "@/redux/provider"
 import { QuickExitButton } from "@/components/layout/quick-exit-button"
+import { Footer } from "@/components/layout/footer"
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const inter = Inter({ 
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+})
+const jetbrainsMono = JetBrains_Mono({ 
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+})
 
 export const metadata: Metadata = {
-  title: "SafeSpace | Domestic Violence Support",
-  description: "A safe space for support and resources.",
+  title: "SafeSpace | Suport pentru Violență Domestică",
+  description: "Un spațiu sigur pentru suport și resurse.",
   generator: "v0.app",
   icons: {
     icon: [
@@ -38,10 +47,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`font-sans antialiased`}>
+    <html lang="ro">
+      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased flex flex-col min-h-screen`}>
         <ReduxProvider>
-          <main className="pb-24 md:pb-0">{children}</main>
+          <main className="pb-24 md:pb-0 flex-1">{children}</main>
+          <Footer />
           <QuickExitButton />
         </ReduxProvider>
         <Analytics />

@@ -5,17 +5,17 @@ import { Bell, Clock, Search } from "lucide-react"
 export default function SpecialistDashboard() {
   // Mock data for specialist view
   const cases = [
-    { id: "SAFE-2024-8821", risk: "High", status: "Pending", time: "10m ago" },
-    { id: "SAFE-2024-8819", risk: "Critical", status: "Active", time: "1h ago" },
-    { id: "SAFE-2024-8804", risk: "Medium", status: "Review", time: "1d ago" },
+    { id: "SAFE-2024-8821", risk: "Ridicat", status: "În așteptare", time: "acum 10 min" },
+    { id: "SAFE-2024-8819", risk: "Critic", status: "Activ", time: "acum 1 oră" },
+    { id: "SAFE-2024-8804", risk: "Moderat", status: "În revizuire", time: "acum 1 zi" },
   ]
 
   return (
     <div className="min-h-screen bg-background">
       {/* Specialist Header */}
-      <header className="bg-[var(--petal-rouge)] text-white p-4">
+      <header className="bg-primary text-primary-foreground p-4">
         <div className="container mx-auto flex justify-between items-center">
-          <h1 className="font-bold text-lg">SafeSpace Specialist Portal</h1>
+          <h1 className="font-bold text-lg">Portal Specialist SafeSpace</h1>
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
               <Bell className="h-5 w-5" />
@@ -31,19 +31,19 @@ export default function SpecialistDashboard() {
           <Card>
             <CardContent className="pt-6">
               <div className="text-2xl font-bold text-primary">4</div>
-              <p className="text-sm text-muted-foreground">Pending Urgent Cases</p>
+              <p className="text-sm text-muted-foreground">Cazuri Urgente în Așteptare</p>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="pt-6">
               <div className="text-2xl font-bold">12</div>
-              <p className="text-sm text-muted-foreground">Active Conversations</p>
+              <p className="text-sm text-muted-foreground">Conversații Active</p>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="pt-6">
               <div className="text-2xl font-bold">98%</div>
-              <p className="text-sm text-muted-foreground">Response Rate</p>
+              <p className="text-sm text-muted-foreground">Rata de Răspuns</p>
             </CardContent>
           </Card>
         </div>
@@ -51,9 +51,9 @@ export default function SpecialistDashboard() {
         {/* Case Management */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold">Incoming Cases</h2>
+            <h2 className="text-xl font-bold">Cazuri Primite</h2>
             <Button variant="outline" size="sm">
-              <Search className="h-4 w-4 mr-2" /> Filter
+              <Search className="h-4 w-4 mr-2" /> Filtrează
             </Button>
           </div>
 
@@ -61,11 +61,11 @@ export default function SpecialistDashboard() {
             <table className="w-full text-sm text-left">
               <thead className="bg-secondary/20 text-muted-foreground">
                 <tr>
-                  <th className="p-4">Case ID</th>
-                  <th className="p-4">Risk Level</th>
+                  <th className="p-4">ID Caz</th>
+                  <th className="p-4">Nivel Risc</th>
                   <th className="p-4">Status</th>
-                  <th className="p-4">Time</th>
-                  <th className="p-4">Action</th>
+                  <th className="p-4">Timp</th>
+                  <th className="p-4">Acțiune</th>
                 </tr>
               </thead>
               <tbody>
@@ -75,11 +75,11 @@ export default function SpecialistDashboard() {
                     <td className="p-4">
                       <span
                         className={`px-2 py-1 rounded-full text-xs font-bold ${
-                          c.risk === "Critical"
+                          c.risk === "Critic"
                             ? "bg-destructive/10 text-destructive"
-                            : c.risk === "High"
-                              ? "bg-[var(--cotton-candy)] text-[var(--petal-rouge)]"
-                              : "bg-[var(--cherry-blossom)] text-[var(--petal-rouge)]"
+                            : c.risk === "Ridicat"
+                              ? "bg-accent/20 text-accent-foreground"
+                              : "bg-secondary/20 text-secondary-foreground"
                         }`}
                       >
                         {c.risk}
@@ -91,7 +91,7 @@ export default function SpecialistDashboard() {
                     </td>
                     <td className="p-4">
                       <Button size="sm" variant="outline">
-                        Review
+                        Revizuiește
                       </Button>
                     </td>
                   </tr>

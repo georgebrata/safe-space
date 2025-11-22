@@ -17,20 +17,20 @@ export default function HelpGateway() {
     <div className="min-h-screen bg-background p-4 md:p-8 flex items-center justify-center">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold">Safety Check</h1>
-          <p className="text-muted-foreground">Before we begin, we need to know if you are in immediate danger.</p>
+          <h1 className="text-3xl font-bold">Verificare Siguranță</h1>
+          <p className="text-muted-foreground">Înainte de a începe, trebuie să știm dacă ești în pericol imediat.</p>
         </div>
 
         <Card className="border-destructive/50 shadow-lg">
           <CardHeader>
             <CardTitle className="text-center flex items-center justify-center gap-2 text-destructive">
               <AlertTriangle className="h-6 w-6" />
-              Is it urgent?
+              Este urgent?
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="text-center text-sm mb-6">
-              Are you currently being threatened, hurt, or do you fear for your immediate safety?
+              Ești amenințată, rănită sau îți este teamă pentru siguranța ta imediată?
             </p>
 
             <Button
@@ -40,12 +40,12 @@ export default function HelpGateway() {
               onClick={handleUrgent}
             >
               <PhoneCall className="mr-2 h-6 w-6" />
-              YES - Call 112
+              DA - Sună 112
             </Button>
 
             <Link href="/risk-form" className="block w-full">
               <Button variant="outline" size="lg" className="w-full h-14 text-lg bg-transparent">
-                No, I am safe right now
+                Nu, sunt în siguranță acum
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>

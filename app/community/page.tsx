@@ -28,7 +28,7 @@ export default function CommunityPage() {
       addPost({
         id: Date.now().toString(),
         authorId: "current-user",
-        authorName: isPrivate ? "Me (Private)" : "Anonymous",
+        authorName: isPrivate ? "Eu (Privat)" : "Anonim",
         content: newPostContent,
         isPrivate,
         likes: 0,
@@ -43,21 +43,21 @@ export default function CommunityPage() {
     <div className="min-h-screen bg-background pb-20">
       <div className="container mx-auto max-w-2xl px-4 py-6 space-y-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Community</h1>
+          <h1 className="text-2xl font-bold">Comunitate</h1>
           <div className="flex gap-2 bg-secondary/50 p-1 rounded-lg">
             <Button
               variant={filter === "all" ? "default" : "ghost"}
               size="sm"
               onClick={() => dispatch(setFilter("all"))}
             >
-              All
+              Toate
             </Button>
             <Button
               variant={filter === "public" ? "default" : "ghost"}
               size="sm"
               onClick={() => dispatch(setFilter("public"))}
             >
-              Public
+              Publice
             </Button>
             <Button
               variant={filter === "private" ? "default" : "ghost"}
@@ -73,7 +73,7 @@ export default function CommunityPage() {
         <Card>
           <CardContent className="pt-6 space-y-4">
             <Textarea
-              placeholder={isPrivate ? "Write a private journal entry..." : "Share something with the community..."}
+              placeholder={isPrivate ? "Scrie o intrare în jurnalul privat..." : "Împărtășește ceva cu comunitatea..."}
               value={newPostContent}
               onChange={(e) => setNewPostContent(e.target.value)}
               className="min-h-[100px]"
@@ -86,11 +86,11 @@ export default function CommunityPage() {
                 className={isPrivate ? "border-primary text-primary bg-primary/5" : ""}
               >
                 {isPrivate ? <Lock className="h-4 w-4 mr-2" /> : <Globe className="h-4 w-4 mr-2" />}
-                {isPrivate ? "Private Journal" : "Public Post"}
+                {isPrivate ? "Jurnal Privat" : "Postare Publică"}
               </Button>
               <Button onClick={handlePost} disabled={!newPostContent.trim()}>
                 <Send className="h-4 w-4 mr-2" />
-                Post
+                Publică
               </Button>
             </div>
           </CardContent>
@@ -128,7 +128,7 @@ export default function CommunityPage() {
                     onClick={() => dispatch(toggleLike(post.id))}
                   >
                     <Heart className={`h-4 w-4 mr-2 ${post.likes > 0 ? "fill-current text-red-500" : ""}`} />
-                    {post.likes} Support
+                    {post.likes} Sprijin
                   </Button>
                 )}
               </CardFooter>

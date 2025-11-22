@@ -20,42 +20,42 @@ export type RiskFormSubmission = z.infer<typeof riskFormSchema>
 export const RISK_QUESTIONS = [
   {
     id: "q1",
-    text: "Has the physical violence increased in frequency or severity over the past 6 months?",
+    text: "A crescut violența fizică în frecvență sau severitate în ultimele 6 luni?",
     options: [
-      { label: "No", score: 0 },
-      { label: "Yes", score: 20 },
+      { label: "Nu", score: 0 },
+      { label: "Da", score: 20 },
     ],
   },
   {
     id: "q2",
-    text: "Does your partner own a gun or have easy access to a weapon?",
+    text: "Partenerul tău deține o armă sau are acces ușor la o armă?",
     options: [
-      { label: "No", score: 0 },
-      { label: "Yes", score: 25 },
+      { label: "Nu", score: 0 },
+      { label: "Da", score: 25 },
     ],
   },
   {
     id: "q3",
-    text: "Has your partner ever tried to choke or strangle you?",
+    text: "A încercat vreodată partenerul tău să te sugrum sau să te strângă de gât?",
     options: [
-      { label: "No", score: 0 },
-      { label: "Yes", score: 30 },
+      { label: "Nu", score: 0 },
+      { label: "Da", score: 30 },
     ],
   },
   {
     id: "q4",
-    text: "Is your partner violently and constantly jealous of you?",
+    text: "Este partenerul tău violent și constant gelos pe tine?",
     options: [
-      { label: "No", score: 0 },
-      { label: "Yes", score: 10 },
+      { label: "Nu", score: 0 },
+      { label: "Da", score: 10 },
     ],
   },
   {
     id: "q5",
-    text: "Do you have children living in the household?",
+    text: "Ai copii care locuiesc în gospodărie?",
     options: [
-      { label: "No", score: 0 },
-      { label: "Yes", score: 5 },
+      { label: "Nu", score: 0 },
+      { label: "Da", score: 5 },
     ],
   },
 ]

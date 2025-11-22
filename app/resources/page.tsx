@@ -11,10 +11,7 @@ import { Button } from "@/components/ui/button"
 function SimpleBadge({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
     <span
-      className={`px-3 py-1 rounded-full text-xs font-semibold bg-[var(--pastel-pink)] dark:bg-[var(--cherry-blossom)] text-[var(--petal-rouge)] dark:text-[var(--cotton-candy)] border border-[var(--cherry-blossom)] dark:border-[var(--cotton-candy)] ${className}`}
-      style={{
-        backgroundColor: "var(--pastel-pink)",
-      }}
+      className={`px-3 py-1 rounded-full text-xs font-semibold bg-secondary/20 text-secondary-foreground border border-secondary/30 ${className}`}
     >
       {children}
     </span>
@@ -26,7 +23,7 @@ const resources = [
     title: "ANES Helpline",
     description:
       "Helpline național gratuit care funcționează 24h/7 zile pe săptămână creat de către Agenția Națională pentru Egalitate de șanse între Femei și Bărbați (ANES), pentru a semnala situații de violență domestică, hărțuire sexuală, trafic de persoane, discriminare de gen sau discriminare multiplă",
-    type: "Hotline",
+    type: "Linie de ajutor",
     contact: "0800 500 333",
     link: "https://anes.gov.ro/",
   },
@@ -34,7 +31,7 @@ const resources = [
     title: "ANITP Helpline",
     description:
       "Linie națională gratuită creată de Agenția Națională împotriva Traficului de Persoane (ANITP) pentru victimele traficului de persoane (sclavie modernă).",
-    type: "Hotline",
+    type: "Linie de ajutor",
     contact: "0800 800 678",
     link: "https://anitp.mai.gov.ro/",
   },
@@ -42,7 +39,7 @@ const resources = [
     title: "Numărul Unic 119",
     description:
       "Linie națională gratuită pentru prevenirea și raportarea oricărui tip de abuz sau violență împotriva copiilor. Gestionată de Autoritatea Națională pentru Protecția Drepturilor Copilului și Adopție. Disponibilă 24/7.",
-    type: "Hotline",
+    type: "Linie de ajutor",
     contact: "119",
     link: "https://dingrijapentrucopii.gov.ro/1/numar-unic-119/",
   }
@@ -124,15 +121,14 @@ export default function ResourcesPage() {
   }, [searchTerm])
 
   return (
-    <div className="min-h-screen bg-[var(--soft-blush)] p-4 md:p-8">
+    <div className="min-h-screen bg-background p-4 md:p-8">
       <div className="container mx-auto max-w-4xl space-y-8">
         <div className="space-y-4 text-center md:text-left">
-          <h1 className="text-3xl font-bold text-[var(--petal-rouge)]">
-            Resources & Support
+          <h1 className="text-3xl font-bold text-primary">
+            Resurse și Suport
           </h1>
           <p className="text-muted-foreground max-w-2xl">
-            Access verified information, emergency contacts, and educational guides. Use the search bar to filter by
-            topic.
+            Accesează informații verificate, contacte de urgență și ghiduri educaționale. Folosește bara de căutare pentru a filtra după subiect.
           </p>
         </div>
 
@@ -140,7 +136,7 @@ export default function ResourcesPage() {
           <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
           <Input
             className="pl-10 h-12"
-            placeholder="Search resources (e.g., 'legal', 'housing', 'hotline')..."
+            placeholder="Caută resurse (ex: 'juridic', 'locuință', 'linie de ajutor')..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -155,8 +151,8 @@ export default function ResourcesPage() {
               onClick={() => setSelectedType(type)}
               className={`rounded-full transition-all ${
                 selectedType === type
-                  ? "bg-[var(--petal-rouge)] hover:opacity-90 text-white shadow-md"
-                  : "border-[var(--cherry-blossom)] text-[var(--petal-rouge)] hover:bg-[var(--pastel-pink)]"
+                  ? "bg-primary hover:opacity-90 text-primary-foreground shadow-md"
+                  : "border-secondary text-primary hover:bg-secondary/10"
               }`}
             >
               {type}
@@ -168,8 +164,8 @@ export default function ResourcesPage() {
             onClick={() => setSelectedType("Tipuri de abuz")}
             className={`rounded-full transition-all ${
               selectedType === "Tipuri de abuz"
-                ? "bg-[var(--petal-rouge)] hover:opacity-90 text-white shadow-md"
-                : "border-[var(--cherry-blossom)] text-[var(--petal-rouge)] hover:bg-[var(--pastel-pink)]"
+                ? "bg-primary hover:opacity-90 text-primary-foreground shadow-md"
+                : "border-secondary text-primary hover:bg-secondary/10"
             }`}
           >
             Tipuri de abuz
@@ -181,7 +177,7 @@ export default function ResourcesPage() {
             {visibleTipuri.map((tip, idx) => (
               <Card
                 key={idx}
-                className="hover:border-[var(--cotton-candy)] transition-all hover:shadow-lg border-[var(--pastel-pink)]"
+                className="hover:border-accent transition-all hover:shadow-lg border-border"
               >
                 <CardHeader>
                   <CardTitle className="text-xl">{tip}</CardTitle>
@@ -195,7 +191,7 @@ export default function ResourcesPage() {
             {filteredResources.map((res, idx) => (
               <Card
                 key={idx}
-                className="hover:border-[var(--cotton-candy)] transition-all hover:shadow-lg border-[var(--pastel-pink)]"
+                className="hover:border-accent transition-all hover:shadow-lg border-border"
               >
                 <CardHeader>
                   <div className="flex justify-between items-start">
@@ -212,12 +208,12 @@ export default function ResourcesPage() {
                     </Button>
                   )}
                   <Button
-                    className="w-full gap-2 hover:opacity-90 text-white shadow-md"
+                    className="w-full gap-2 bg-primary hover:opacity-90 text-primary-foreground shadow-md"
                     variant="default"
                     onClick={() => window.open(res.link, "_blank")}
                   >
                     <BookOpen className="h-4 w-4" />
-                    {res.contact ? "Visit Website" : "Read Guide"}
+                    {res.contact ? "Vizitează Site-ul" : "Citește Ghidul"}
                   </Button>
                 </CardContent>
               </Card>

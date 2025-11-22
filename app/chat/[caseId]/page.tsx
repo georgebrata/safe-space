@@ -11,14 +11,14 @@ export default function ChatInterface({ params }: { params: { caseId: string } }
     {
       id: 1,
       sender: "system",
-      text: "You have been connected with Specialist Sarah. This chat is end-to-end encrypted.",
-      time: "10:00 AM",
+      text: "Ai fost conectată cu Specialistul Sarah. Acest chat este criptat end-to-end.",
+      time: "10:00",
     },
     {
       id: 2,
       sender: "specialist",
-      text: "Hello. I'm Sarah, a crisis counselor. I've reviewed your risk assessment. I'm here to listen and help you find safety. Are you in a safe place to talk right now?",
-      time: "10:01 AM",
+      text: "Bună. Sunt Sarah, consilier de criză. Am revizuit evaluarea ta de risc. Sunt aici să te ascult și să te ajut să găsești siguranță. Ești într-un loc sigur pentru a vorbi acum?",
+      time: "10:01",
     },
   ])
   const [inputText, setInputText] = useState("")
@@ -41,7 +41,7 @@ export default function ChatInterface({ params }: { params: { caseId: string } }
           </Link>
           <div>
             <h1 className="font-bold">Sarah (Specialist)</h1>
-            <p className="text-xs opacity-80">Online • Case #{params.caseId || "NEW"}</p>
+            <p className="text-xs opacity-80">Online • Caz #{params.caseId || "NOU"}</p>
           </div>
         </div>
         <div className="flex gap-2">
@@ -89,7 +89,7 @@ export default function ChatInterface({ params }: { params: { caseId: string } }
             <Paperclip className="h-5 w-5" />
           </Button>
           <Input
-            placeholder="Type a message..."
+            placeholder="Scrie un mesaj..."
             className="flex-1 rounded-full bg-secondary/20 border-0 focus-visible:ring-1"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
