@@ -25,65 +25,103 @@ const resources = [
   {
     title: "ANES Helpline",
     description:
-      "National free helpline operating 24/7 created by the National Agency for Equal Opportunities between Women and Men (ANES) to report domestic violence, sexual harassment, human trafficking, gender discrimination or multiple discrimination.",
+      "Helpline național gratuit care funcționează 24h/7 zile pe săptămână creat de către Agenția Națională pentru Egalitate de șanse între Femei și Bărbați (ANES), pentru a semnala situații de violență domestică, hărțuire sexuală, trafic de persoane, discriminare de gen sau discriminare multiplă",
     type: "Hotline",
     contact: "0800 500 333",
     link: "https://anes.gov.ro/",
   },
   {
-    title: "Helpline Antidepresie",
-    description:
-      "Free depression helpline providing primary support for depression and anxiety, managed by DepreHub Association.",
-    type: "Hotline",
-    contact: "0374456420",
-    link: "https://deprehub.ro/",
-  },
-  {
     title: "ANITP Helpline",
     description:
-      "National free helpline created by the National Agency Against Human Trafficking (ANITP) for victims of human trafficking (modern slavery).",
+      "Linie națională gratuită creată de Agenția Națională împotriva Traficului de Persoane (ANITP) pentru victimele traficului de persoane (sclavie modernă).",
     type: "Hotline",
     contact: "0800 800 678",
     link: "https://anitp.mai.gov.ro/",
   },
   {
-    title: "Telefonul Copilului",
-    description:
-      "National free helpline for children and adolescents managed by Telefonul Copilului Association for reporting child abuse, violations of children's rights, or any other problem involving a child. Available Monday-Friday 10:00-20:00.",
-    type: "Hotline",
-    contact: "116 111",
-    link: "https://telefonulcopilului.ro/",
-  },
-  {
     title: "Numărul Unic 119",
     description:
-      "National free helpline for preventing and reporting any kind of abuse or violence against children. Managed by the National Authority for the Protection of Children's Rights and Adoption. Available 24/7.",
+      "Linie națională gratuită pentru prevenirea și raportarea oricărui tip de abuz sau violență împotriva copiilor. Gestionată de Autoritatea Națională pentru Protecția Drepturilor Copilului și Adopție. Disponibilă 24/7.",
     type: "Hotline",
     contact: "119",
     link: "https://dingrijapentrucopii.gov.ro/1/numar-unic-119/",
-  },
-  {
-    title: "Telefonul Vârstnicului",
-    description:
-      "Free and confidential helpline offering support and counseling for elderly people. Supported by the Royal Foundation Margareta of Romania. Available Monday-Friday 08:00-20:00, Saturday 08:00-16:00.",
-    type: "Hotline",
-    contact: "0800 460 001",
-    link: "https://www.telefonulvarstnicului.ro/",
-  },
+  }
 ]
+
+const tipuriAbuz = [
+  "Violență domestică",
+  "Violență verbală",
+  "Violenţa psihologică",
+  "Violenţa fizică",
+  "Violență sexuală",
+  "Violenţa economică",
+]
+
+const violentaDomesticaText = `Violenţa domestică înseamnă orice inacţiune sau acţiune intenţionată de violenţă fizică, sexuală, psihologică, economică, socială, spirituală sau cibernetică, care se produce în mediul familial sau domestic ori între soţi sau foşti soţi, precum şi între actuali sau foşti parteneri, indiferent dacă agresorul locuieşte sau a locuit împreună cu victima.
+Violenţa domestică se poate manifesta sub următoarele forme: violență verbală, psihologică, fizică, sexuală, economică.`;
+const violentaVerbalaText = `Adresarea printr-un limbaj jignitor, brutal precum și utilizarea de insulte, amenințări, cuvinte și expresii degradante sau umilitoare reprezintă violență verbală.`;
+const violentaPsihologicaText = `Violenţa psihologică se realizează prin impunerea voinţei sau a controlului personal, provocarea de stări de tensiune şi de suferinţă psihică, prin ameninţare verbală sau în orice altă modalitate, şantaj, violenţă demonstrativă asupra obiectelor şi animalelor, afişare ostentativă a armelor, neglijare, controlul vieţii personale, acte de gelozie, constrângeri de orice fel, urmărirea fără drept, supravegherea locuinţei, a locului de muncă sau a altor locuri frecventate de victimă, efectuarea de apeluri telefonice sau alte tipuri de comunicări prin mijloace de transmitere la distanţă, care prin frecvenţă, conţinut sau momentul în care sunt emise creează temere.`;
+const violentaFizicaText = `Violenţa fizică reprezintă vătămarea corporală prin lovire, îmbrâncire, trântire, tragere de păr, înţepare, tăiere, ardere, strangulare, muşcare, în orice formă şi de orice intensitate, inclusiv mascate ca fiind rezultatul unor accidente, prin otrăvire, intoxicare, precum şi alte acţiuni cu efect similar, supunerea la eforturi fizice epuizante sau la activităţi cu grad mare de risc pentru viaţă sau sănătate şi integritate corporală.`;
+const violentaSexualaText = `Violenţa sexuală se poate manifesta prin agresiune sexuală, impunere de acte degradante, hărţuire, intimidare, manipulare, brutalitate în vederea întreţinerii unor relaţii sexuale forţate, viol, inclusiv viol conjugal. Activitatea sexuală fără consimțământ reprezintă  violenţă sexuală.`;
+const violentaEconomicaText = `Violenţa economică se poate manifesta prin interzicerea activităţii profesionale, privare de mijloace economice, inclusiv lipsire de mijloace de existenţă primară, cum ar fi hrană, medicamente, obiecte de primă necesitate, acţiunea de sustragere intenţionată a bunurilor persoanei, interzicerea dreptului de a poseda, folosi şi dispune de bunurile comune, control inechitabil asupra bunurilor şi resurselor comune, refuzul de a susţine familia, impunerea de munci grele şi nocive în detrimentul sănătăţii, inclusiv unui membru de familie minor, precum şi alte acţiuni cu efect similar.`;
 
 export default function ResourcesPage() {
   const [selectedType, setSelectedType] = useState<string | null>(null)
+  const [showMore, setShowMore] = useState(false)
+
+  // added search state
+  const [searchTerm, setSearchTerm] = useState("")
 
   const uniqueTypes = useMemo(() => {
     const types = Array.from(new Set(resources.map((res) => res.type)))
     return types.sort()
   }, [])
 
+  // helper to get tip text
+  const getTipText = (tip: string) => {
+    if (tip === "Violență domestică") return violentaDomesticaText
+    if (tip === "Violență verbală") return violentaVerbalaText
+    if (tip === "Violenţa psihologică") return violentaPsihologicaText
+    if (tip === "Violenţa fizică") return violentaFizicaText
+    if (tip === "Violență sexuală") return violentaSexualaText
+    if (tip === "Violenţa economică") return violentaEconomicaText
+    return ""
+  }
+
   const filteredResources = useMemo(() => {
-    if (!selectedType) return resources
-    return resources.filter((res) => res.type === selectedType)
-  }, [selectedType])
+    const q = searchTerm.trim().toLowerCase()
+    let items = resources
+
+    // filter by selected type (Hotline, etc.) unless the special tab is active
+    if (selectedType && selectedType !== "Tipuri de abuz") {
+      items = items.filter((res) => res.type === selectedType)
+    }
+
+    if (!q) return items
+
+    return items.filter((res) => {
+      const hay = (
+        (res.title || "") +
+        " " +
+        (res.description || "") +
+        " " +
+        (res.type || "") +
+        " " +
+        (res.contact || "")
+      ).toLowerCase()
+      return hay.includes(q)
+    })
+  }, [selectedType, searchTerm])
+
+  // filter tipuriAbuz by search term as well
+  const visibleTipuri = useMemo(() => {
+    const q = searchTerm.trim().toLowerCase()
+    if (!q) return tipuriAbuz
+    return tipuriAbuz.filter((tip) => {
+      const hay = (tip + " " + getTipText(tip)).toLowerCase()
+      return hay.includes(q)
+    })
+  }, [searchTerm])
 
   return (
     <div className="min-h-screen bg-[var(--soft-blush)] p-4 md:p-8">
@@ -100,22 +138,15 @@ export default function ResourcesPage() {
 
         <div className="relative">
           <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-          <Input className="pl-10 h-12" placeholder="Search resources (e.g., 'legal', 'housing', 'hotline')..." />
+          <Input
+            className="pl-10 h-12"
+            placeholder="Search resources (e.g., 'legal', 'housing', 'hotline')..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
 
         <div className="flex flex-wrap gap-2">
-          <Button
-            variant={selectedType === null ? "default" : "outline"}
-            size="sm"
-            onClick={() => setSelectedType(null)}
-            className={`rounded-full transition-all ${
-              selectedType === null
-                ? "bg-[var(--petal-rouge)] hover:opacity-90 text-white shadow-md"
-                : "border-[var(--cherry-blossom)] text-[var(--petal-rouge)] hover:bg-[var(--pastel-pink)]"
-            }`}
-          >
-            All
-          </Button>
           {uniqueTypes.map((type) => (
             <Button
               key={type}
@@ -131,40 +162,68 @@ export default function ResourcesPage() {
               {type}
             </Button>
           ))}
+          <Button
+            variant={selectedType === "Tipuri de abuz" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setSelectedType("Tipuri de abuz")}
+            className={`rounded-full transition-all ${
+              selectedType === "Tipuri de abuz"
+                ? "bg-[var(--petal-rouge)] hover:opacity-90 text-white shadow-md"
+                : "border-[var(--cherry-blossom)] text-[var(--petal-rouge)] hover:bg-[var(--pastel-pink)]"
+            }`}
+          >
+            Tipuri de abuz
+          </Button>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
-          {filteredResources.map((res, idx) => (
-            <Card
-              key={idx}
-              className="hover:border-[var(--cotton-candy)] transition-all hover:shadow-lg border-[var(--pastel-pink)]"
-            >
-              <CardHeader>
-                <div className="flex justify-between items-start">
-                  <SimpleBadge className="mb-2">{res.type}</SimpleBadge>
-                  {res.link && <ExternalLink className="h-4 w-4 text-muted-foreground" />}
-                </div>
-                <CardTitle className="text-xl">{res.title}</CardTitle>
-                <CardDescription>{res.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {res.contact && (
-                  <Button variant="outline" className="w-full mb-2 gap-2 bg-transparent">
-                    <Phone className="h-4 w-4" /> {res.contact}
+        {selectedType === "Tipuri de abuz" ? (
+          <div className="grid gap-6 grid-cols-1">
+            {visibleTipuri.map((tip, idx) => (
+              <Card
+                key={idx}
+                className="hover:border-[var(--cotton-candy)] transition-all hover:shadow-lg border-[var(--pastel-pink)]"
+              >
+                <CardHeader>
+                  <CardTitle className="text-xl">{tip}</CardTitle>
+                </CardHeader>
+                <CardContent>{getTipText(tip)}</CardContent>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <div className="grid gap-6 grid-cols-1">
+            {filteredResources.map((res, idx) => (
+              <Card
+                key={idx}
+                className="hover:border-[var(--cotton-candy)] transition-all hover:shadow-lg border-[var(--pastel-pink)]"
+              >
+                <CardHeader>
+                  <div className="flex justify-between items-start">
+                    <SimpleBadge className="mb-2">{res.type}</SimpleBadge>
+                    {res.link && <ExternalLink className="h-4 w-4 text-muted-foreground" />}
+                  </div>
+                  <CardTitle className="text-xl">{res.title}</CardTitle>
+                  <CardDescription>{res.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {res.contact && (
+                    <Button variant="outline" className="w-full mb-2 gap-2 bg-transparent">
+                      <Phone className="h-4 w-4" /> {res.contact}
+                    </Button>
+                  )}
+                  <Button
+                    className="w-full gap-2 hover:opacity-90 text-white shadow-md"
+                    variant="default"
+                    onClick={() => window.open(res.link, "_blank")}
+                  >
+                    <BookOpen className="h-4 w-4" />
+                    {res.contact ? "Visit Website" : "Read Guide"}
                   </Button>
-                )}
-                <Button
-                  className="w-full gap-2 hover:opacity-90 text-white shadow-md"
-                  variant="default"
-                  onClick={() => window.open(res.link, "_blank")}
-                >
-                  <BookOpen className="h-4 w-4" />
-                  {res.contact ? "Visit Website" : "Read Guide"}
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   )
