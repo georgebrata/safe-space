@@ -6,6 +6,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Search, Phone, ExternalLink, BookOpen } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useAppSelector } from "@/redux/hooks"
+import { SpaceResources } from "@/components/camouflage/space-resources"
 
 // Simple Badge component inline
 function SimpleBadge({ children, className }: { children: React.ReactNode; className?: string }) {
@@ -63,11 +65,16 @@ const violentaSexualaText = `Violenţa sexuală se poate manifesta prin agresiun
 const violentaEconomicaText = `Violenţa economică se poate manifesta prin interzicerea activităţii profesionale, privare de mijloace economice, inclusiv lipsire de mijloace de existenţă primară, cum ar fi hrană, medicamente, obiecte de primă necesitate, acţiunea de sustragere intenţionată a bunurilor persoanei, interzicerea dreptului de a poseda, folosi şi dispune de bunurile comune, control inechitabil asupra bunurilor şi resurselor comune, refuzul de a susţine familia, impunerea de munci grele şi nocive în detrimentul sănătăţii, inclusiv unui membru de familie minor, precum şi alte acţiuni cu efect similar.`;
 
 export default function ResourcesPage() {
+  const isCamouflaged = useAppSelector((state) => state.camouflage.isActive)
   const [selectedType, setSelectedType] = useState<string | null>(null)
   const [showMore, setShowMore] = useState(false)
 
   // added search state
   const [searchTerm, setSearchTerm] = useState("")
+
+  if (isCamouflaged) {
+    return <SpaceResources />
+  }
 
   const uniqueTypes = useMemo(() => {
     const types = Array.from(new Set(resources.map((res) => res.type)))

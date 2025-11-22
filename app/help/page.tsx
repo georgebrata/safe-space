@@ -5,12 +5,19 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { AlertTriangle, ArrowRight, PhoneCall } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useAppSelector } from "@/redux/hooks"
+import { SpacePage } from "@/components/camouflage/space-page"
 
 export default function HelpGateway() {
   const router = useRouter()
+  const isCamouflaged = useAppSelector((state) => state.camouflage.isActive)
 
   const handleUrgent = () => {
     window.location.href = "tel:112"
+  }
+
+  if (isCamouflaged) {
+    return <SpacePage title="Explorare Spațială" />
   }
 
   return (

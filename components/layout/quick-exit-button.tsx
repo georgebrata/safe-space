@@ -2,10 +2,16 @@
 
 import { Button } from "@/components/ui/button"
 import { Phone } from "lucide-react"
+import { useAppSelector } from "@/redux/hooks"
 
 export function QuickExitButton() {
+  const isCamouflaged = useAppSelector((state) => state.camouflage.isActive)
   const handleCall112 = () => {
     window.location.href = "tel:112"
+  }
+
+  if (isCamouflaged) {
+    return null
   }
 
   return (

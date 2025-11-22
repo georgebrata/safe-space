@@ -1,35 +1,28 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Shield, HeartHandshake, FileText, Users } from "lucide-react"
 import Link from "next/link"
+import { useAppSelector } from "@/redux/hooks"
+import { SpaceHome } from "@/components/camouflage/space-home"
+import { Header } from "@/components/layout/header"
 
 export default function Home() {
+  const isCamouflaged = useAppSelector((state) => state.camouflage.isActive)
+
+  if (isCamouflaged) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <SpaceHome />
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Navbar */}
-      <header className="border-b bg-background sticky top-0 z-40">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2 text-dark font-bold text-xl">
-            <img src="./logo.png" alt="SafeSpace" className="h-8 w-8" />
-            <span>SafeSpace</span>
-          </div>
-          <nav className="hidden md:flex gap-6">
-            <Link href="/resources" className="text-sm font-medium hover:text-primary">
-              Resurse
-            </Link>
-            <Link href="/community" className="text-sm font-medium hover:text-primary">
-              Comunitate
-            </Link>
-          </nav>
-          <div className="flex gap-2">
-            <Link href="/specialist">
-              <Button variant="ghost" size="sm">
-                Autentificare Specialist
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Hero Section */}
       <section className="bg-secondary/30 py-12 md:py-20">

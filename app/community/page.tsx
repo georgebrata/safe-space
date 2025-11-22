@@ -7,12 +7,18 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 import { Lock, Globe, Heart, Send } from "lucide-react"
+import { SpacePage } from "@/components/camouflage/space-page"
 
 export default function CommunityPage() {
   const dispatch = useAppDispatch()
   const { posts, filter } = useAppSelector((state) => state.community)
+  const isCamouflaged = useAppSelector((state) => state.camouflage.isActive)
   const [newPostContent, setNewPostContent] = useState("")
   const [isPrivate, setIsPrivate] = useState(false)
+
+  if (isCamouflaged) {
+    return <SpacePage title="Comunitate de Exploratori Spațiali" />
+  }
 
   const filteredPosts = posts.filter((post) => {
     if (filter === "all") return true

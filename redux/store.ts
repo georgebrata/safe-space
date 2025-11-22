@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit"
 import authReducer from "./slices/authSlice"
 import riskFormReducer from "./slices/riskFormSlice"
 import communityReducer from "./slices/communitySlice"
+import camouflageReducer from "./slices/camouflageSlice"
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     riskForm: riskFormReducer,
     community: communityReducer,
+    camouflage: camouflageReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
