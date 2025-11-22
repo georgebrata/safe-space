@@ -21,7 +21,7 @@ export default function SupportFlowPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-3 text-2xl">
               <ShieldAlert className={`h-8 w-8 ${riskLevel === "critical" ? "text-destructive" : "text-primary"}`} />
-              Recomandăm să vorbești cu un specialist
+              Recomandăm să vorbești cu un specialist juridic
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -40,7 +40,7 @@ export default function SupportFlowPage() {
               </div>
               <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
                 <UserCheck className="h-4 w-4" />
-                Așteptăm atribuirea specialistului...
+                Așteptăm atribuirea avocatului ...
               </div>
             </div>
           </CardContent>

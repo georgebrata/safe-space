@@ -51,10 +51,10 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Logo and Description */}
           <div className="md:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
+            <a href="/" className="flex items-center gap-2 mb-4">
               <img src="/logo.png" alt="SafeSpace" className="h-8 w-8" />
               <span className="text-xl font-bold text-dark">SafeSpace</span>
-            </div>
+            </a>
             <p className="text-muted-foreground text-sm max-w-md leading-relaxed">
               Un spațiu sigur, securizat și privat pentru suport în caz de violență domestică. Găsește ajutor, conectează-te cu specialiști și accesează resurse verificate 24/7.
             </p>

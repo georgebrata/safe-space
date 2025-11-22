@@ -68,7 +68,7 @@ export default function RiskFormPage() {
               <Button
                 key={idx}
                 variant="outline"
-                className="w-full justify-start text-left h-auto py-4 px-6 text-lg hover:border-primary hover:bg-primary/5 bg-transparent"
+                className="w-full justify-start text-left h-auto py-4 px-6 text-lg hover:border-primary bg-transparent"
                 onClick={() => handleOptionSelect(option.score)}
               >
                 {option.label}

@@ -43,7 +43,7 @@ export default function CommunityPage() {
     <div className="min-h-screen bg-background pb-20">
       <div className="container mx-auto max-w-2xl px-4 py-6 space-y-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Comunitate</h1>
+          <h1 className="text-2xl font-bold">{filter === "private" ? "Jurnal privat" : "Comunitate"}</h1>
           <div className="flex gap-2 bg-secondary/50 p-1 rounded-lg">
             <Button
               variant={filter === "all" ? "default" : "ghost"}
