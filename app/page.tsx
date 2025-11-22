@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Navbar */}
-      <header className="border-b bg-white sticky top-0 z-40">
+      <header className="border-b bg-background sticky top-0 z-40">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2 text-primary font-bold text-xl">
             <img src="./logo.png" alt="SafeSpace" className="h-8 w-8" />

@@ -13,11 +13,11 @@ export default function SpecialistDashboard() {
   return (
     <div className="min-h-screen bg-background">
       {/* Specialist Header */}
-      <header className="bg-slate-900 text-white p-4">
+      <header className="bg-[var(--petal-rouge)] text-white p-4">
         <div className="container mx-auto flex justify-between items-center">
           <h1 className="font-bold text-lg">SafeSpace Specialist Portal</h1>
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" className="text-white hover:bg-slate-800">
+            <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
               <Bell className="h-5 w-5" />
             </Button>
             <div className="h-8 w-8 bg-primary rounded-full flex items-center justify-center font-bold">DR</div>
@@ -57,7 +57,7 @@ export default function SpecialistDashboard() {
             </Button>
           </div>
 
-          <div className="bg-white rounded-lg border overflow-hidden">
+          <div className="bg-card rounded-lg border overflow-hidden">
             <table className="w-full text-sm text-left">
               <thead className="bg-secondary/20 text-muted-foreground">
                 <tr>
@@ -78,8 +78,8 @@ export default function SpecialistDashboard() {
                           c.risk === "Critical"
                             ? "bg-destructive/10 text-destructive"
                             : c.risk === "High"
-                              ? "bg-orange-100 text-orange-700"
-                              : "bg-blue-100 text-blue-700"
+                              ? "bg-[var(--cotton-candy)] text-[var(--petal-rouge)]"
+                              : "bg-[var(--cherry-blossom)] text-[var(--petal-rouge)]"
                         }`}
                       >
                         {c.risk}

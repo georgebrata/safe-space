@@ -11,7 +11,10 @@ import { Button } from "@/components/ui/button"
 function SimpleBadge({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
     <span
-      className={`px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-pink-100 to-rose-100 dark:from-pink-900/30 dark:to-rose-900/30 text-pink-700 dark:text-pink-300 border border-pink-200 dark:border-pink-800/50 ${className}`}
+      className={`px-3 py-1 rounded-full text-xs font-semibold bg-[var(--pastel-pink)] dark:bg-[var(--cherry-blossom)] text-[var(--petal-rouge)] dark:text-[var(--cotton-candy)] border border-[var(--cherry-blossom)] dark:border-[var(--cotton-candy)] ${className}`}
+      style={{
+        backgroundColor: "var(--pastel-pink)",
+      }}
     >
       {children}
     </span>
@@ -20,29 +23,52 @@ function SimpleBadge({ children, className }: { children: React.ReactNode; class
 
 const resources = [
   {
-    title: "National Domestic Violence Hotline",
-    description: "24/7 confidential support for anyone experiencing domestic violence.",
+    title: "ANES Helpline",
+    description:
+      "National free helpline operating 24/7 created by the National Agency for Equal Opportunities between Women and Men (ANES) to report domestic violence, sexual harassment, human trafficking, gender discrimination or multiple discrimination.",
     type: "Hotline",
-    contact: "1-800-799-7233",
-    link: "https://www.thehotline.org",
+    contact: "0800 500 333",
+    link: "https://anes.gov.ro/",
   },
   {
-    title: "Safety Planning Guide",
-    description: "A comprehensive guide on how to create a personalized safety plan.",
-    type: "Guide",
-    link: "/guides/safety-planning",
+    title: "Helpline Antidepresie",
+    description:
+      "Free depression helpline providing primary support for depression and anxiety, managed by DepreHub Association.",
+    type: "Hotline",
+    contact: "0374456420",
+    link: "https://deprehub.ro/",
   },
   {
-    title: "Legal Aid Society",
-    description: "Free legal services for low-income families and domestic violence victims.",
-    type: "Legal",
-    link: "https://www.legalaid.org",
+    title: "ANITP Helpline",
+    description:
+      "National free helpline created by the National Agency Against Human Trafficking (ANITP) for victims of human trafficking (modern slavery).",
+    type: "Hotline",
+    contact: "0800 800 678",
+    link: "https://anitp.mai.gov.ro/",
   },
   {
-    title: "Financial Independence Fund",
-    description: "Grants and support for survivors seeking financial autonomy.",
-    type: "Financial",
-    link: "#",
+    title: "Telefonul Copilului",
+    description:
+      "National free helpline for children and adolescents managed by Telefonul Copilului Association for reporting child abuse, violations of children's rights, or any other problem involving a child. Available Monday-Friday 10:00-20:00.",
+    type: "Hotline",
+    contact: "116 111",
+    link: "https://telefonulcopilului.ro/",
+  },
+  {
+    title: "Numărul Unic 119",
+    description:
+      "National free helpline for preventing and reporting any kind of abuse or violence against children. Managed by the National Authority for the Protection of Children's Rights and Adoption. Available 24/7.",
+    type: "Hotline",
+    contact: "119",
+    link: "https://dingrijapentrucopii.gov.ro/1/numar-unic-119/",
+  },
+  {
+    title: "Telefonul Vârstnicului",
+    description:
+      "Free and confidential helpline offering support and counseling for elderly people. Supported by the Royal Foundation Margareta of Romania. Available Monday-Friday 08:00-20:00, Saturday 08:00-16:00.",
+    type: "Hotline",
+    contact: "0800 460 001",
+    link: "https://www.telefonulvarstnicului.ro/",
   },
 ]
 
@@ -60,10 +86,10 @@ export default function ResourcesPage() {
   }, [selectedType])
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-50/50 via-background to-rose-50/30 dark:from-pink-950/20 dark:via-background dark:to-rose-950/20 p-4 md:p-8">
+    <div className="min-h-screen bg-[var(--soft-blush)] p-4 md:p-8">
       <div className="container mx-auto max-w-4xl space-y-8">
         <div className="space-y-4 text-center md:text-left">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 dark:from-pink-400 dark:to-rose-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold text-[var(--petal-rouge)]">
             Resources & Support
           </h1>
           <p className="text-muted-foreground max-w-2xl">
@@ -84,8 +110,8 @@ export default function ResourcesPage() {
             onClick={() => setSelectedType(null)}
             className={`rounded-full transition-all ${
               selectedType === null
-                ? "bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white shadow-md shadow-pink-200 dark:shadow-pink-900/50"
-                : "border-pink-200 dark:border-pink-800 text-pink-700 dark:text-pink-300 hover:bg-pink-50 dark:hover:bg-pink-950/30"
+                ? "bg-[var(--petal-rouge)] hover:opacity-90 text-white shadow-md"
+                : "border-[var(--cherry-blossom)] text-[var(--petal-rouge)] hover:bg-[var(--pastel-pink)]"
             }`}
           >
             All
@@ -98,8 +124,8 @@ export default function ResourcesPage() {
               onClick={() => setSelectedType(type)}
               className={`rounded-full transition-all ${
                 selectedType === type
-                  ? "bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white shadow-md shadow-pink-200 dark:shadow-pink-900/50"
-                  : "border-pink-200 dark:border-pink-800 text-pink-700 dark:text-pink-300 hover:bg-pink-50 dark:hover:bg-pink-950/30"
+                  ? "bg-[var(--petal-rouge)] hover:opacity-90 text-white shadow-md"
+                  : "border-[var(--cherry-blossom)] text-[var(--petal-rouge)] hover:bg-[var(--pastel-pink)]"
               }`}
             >
               {type}
@@ -111,7 +137,7 @@ export default function ResourcesPage() {
           {filteredResources.map((res, idx) => (
             <Card
               key={idx}
-              className="hover:border-pink-300 dark:hover:border-pink-700 transition-all hover:shadow-lg hover:shadow-pink-100 dark:hover:shadow-pink-900/20 border-pink-100 dark:border-pink-900/30"
+              className="hover:border-[var(--cotton-candy)] transition-all hover:shadow-lg border-[var(--pastel-pink)]"
             >
               <CardHeader>
                 <div className="flex justify-between items-start">
@@ -128,8 +154,9 @@ export default function ResourcesPage() {
                   </Button>
                 )}
                 <Button
-                  className="w-full gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white shadow-md shadow-pink-200 dark:shadow-pink-900/50"
+                  className="w-full gap-2 hover:opacity-90 text-white shadow-md"
                   variant="default"
+                  onClick={() => window.open(res.link, "_blank")}
                 >
                   <BookOpen className="h-4 w-4" />
                   {res.contact ? "Visit Website" : "Read Guide"}
