@@ -26,6 +26,8 @@ export default function ContactSpecialistChat() {
   const CHAT_INDEX = "contactSpecialist.chats"
   const CHAT_PREFIX = "contactSpecialist.chat."
   const RISK_KEY = "riskForm.completed"
+  const MY_KEY = "contactSpecialist.myCaseId"
+  const LEGACY_KEY = "contactSpecialist.chat"
 
   // Index helpers
   function readIndex(): ChatMeta[] {
@@ -64,7 +66,33 @@ export default function ContactSpecialistChat() {
       const parsedCompleted = rawCompleted ? (JSON.parse(rawCompleted) as CompletedRecord) : null
       setCompleted(parsedCompleted)
 
-      // Try to find an existing chat linked to this completion (by completedAt) or legacy keys
+      // 0) If user has a persisted personal caseId, load that first (keeps user on same chat across reloads)
+      const myCaseId = localStorage.getItem(MY_KEY)
+      if (myCaseId) {
+        const rawChat = localStorage.getItem(CHAT_PREFIX + myCaseId)
+        if (rawChat) {
+          const parsed = JSON.parse(rawChat) as SavedChat
+          setCaseId(parsed.caseId)
+          setMessages((parsed.messages || []).sort((a, b) => a.id - b.id))
+          setClosed(!!parsed.closed)
+          upsertIndex({
+            caseId: parsed.caseId,
+            status: parsed.closed ? "ended" : parsed.messages?.some((m) => m.sender === "specialist") ? "ongoing" : "waiting",
+            createdAt: parsed.savedAt ?? Date.now(),
+            mode: parsed.completed?.mode,
+            lastMessageAt: parsed.messages?.length ? parsed.messages[parsed.messages.length - 1].id : Date.now(),
+            completed: parsed.completed,
+            closed: !!parsed.closed,
+          })
+          setLoading(false)
+          return
+        } else {
+          // stale myCaseId: clear it and continue loading fallback
+          try { localStorage.removeItem(MY_KEY) } catch {}
+        }
+      }
+
+      // 1) Try to find an existing chat linked to this completion (by completedAt) or legacy keys
       const index = readIndex()
       let foundMeta = null as ChatMeta | null
       if (parsedCompleted) {
@@ -77,13 +105,15 @@ export default function ContactSpecialistChat() {
           setCaseId(parsed.caseId)
           setMessages((parsed.messages || []).sort((a, b) => a.id - b.id))
           setClosed(!!parsed.closed)
+          // persist myCaseId for quick reloads
+          try { localStorage.setItem(MY_KEY, parsed.caseId) } catch {}
           setLoading(false)
           return
         }
       }
 
-      // Legacy single-key migration
-      const legacy = localStorage.getItem("contactSpecialist.chat")
+      // 2) Legacy single-key migration
+      const legacy = localStorage.getItem(LEGACY_KEY)
       if (legacy) {
         try {
           const parsed = JSON.parse(legacy) as SavedChat
@@ -102,12 +132,13 @@ export default function ContactSpecialistChat() {
           setCaseId(newId)
           setMessages((parsed.messages || []).sort((a, b) => a.id - b.id))
           setClosed(!!parsed.closed)
+          try { localStorage.setItem(MY_KEY, newId) } catch {}
           setLoading(false)
           return
         } catch {}
       }
 
-      // Create a new per-case chat if the user completed assessment
+      // 3) Create a new per-case chat if the user completed assessment
       if (parsedCompleted) {
         const newCaseId = `CS-${Math.floor(Math.random() * 100000)}`
         setCaseId(newCaseId)
@@ -133,6 +164,8 @@ export default function ContactSpecialistChat() {
             completed: parsedCompleted,
             closed: false,
           })
+          // persist mapping so the user returns to the same chat on reload
+          localStorage.setItem(MY_KEY, newCaseId)
         } catch {}
       }
 
@@ -145,6 +178,59 @@ export default function ContactSpecialistChat() {
       setLoading(false)
     }
   }, [])
+
+  // storage event listener — keep state in sync across tabs
+  useEffect(() => {
+    function onStorage(e: StorageEvent) {
+      if (!e.key) return
+      // If myCaseId changed in another tab, try to load that chat
+      if (e.key === MY_KEY) {
+        const myCaseId = e.newValue
+        if (!myCaseId) return
+        const rawChat = localStorage.getItem(CHAT_PREFIX + myCaseId)
+        if (!rawChat) return
+        try {
+          const parsed = JSON.parse(rawChat) as SavedChat
+          setCaseId(parsed.caseId)
+          setMessages((s) => mergeMessages(s, (parsed.messages || []).sort((a, b) => a.id - b.id)))
+          setClosed(!!parsed.closed)
+        } catch {}
+        return
+      }
+
+      // If the per-case storage changed, merge messages
+      if (caseId && (e.key === CHAT_PREFIX + caseId || e.key === LEGACY_KEY)) {
+        if (!e.newValue) return
+        try {
+          const parsed = JSON.parse(e.newValue) as SavedChat
+          setMessages((s) => mergeMessages(s, (parsed.messages || []).sort((a, b) => a.id - b.id)))
+          setClosed(!!parsed.closed)
+        } catch {}
+        return
+      }
+
+      // If index changed and we don't have a case yet, try to find one matching completedAt
+      if (!caseId && e.key === CHAT_INDEX && completed) {
+        try {
+          const idx = JSON.parse(e.newValue || "[]") as ChatMeta[]
+          const found = idx.find((c) => c.completed?.completedAt === completed.completedAt)
+          if (found) {
+            const raw = localStorage.getItem(CHAT_PREFIX + found.caseId)
+            if (raw) {
+              const parsed = JSON.parse(raw) as SavedChat
+              setCaseId(parsed.caseId)
+              setMessages((parsed.messages || []).sort((a, b) => a.id - b.id))
+              setClosed(!!parsed.closed)
+              try { localStorage.setItem(MY_KEY, parsed.caseId) } catch {}
+            }
+          }
+        } catch {}
+      }
+    }
+
+    window.addEventListener("storage", onStorage)
+    return () => window.removeEventListener("storage", onStorage)
+  }, [caseId, completed])
 
   // Persist per-case chat messages and update index whenever messages/closed change
   useEffect(() => {
@@ -160,8 +246,10 @@ export default function ContactSpecialistChat() {
       if (!same) {
         setMessages(merged)
       }
-      // persist merged (we persist the merged set to canonical storage)
+      // persist merged
       localStorage.setItem(storageKey, JSON.stringify({ caseId, messages: merged, savedAt: Date.now(), completed, closed }))
+      // ensure we persist myCaseId as well
+      try { localStorage.setItem(MY_KEY, caseId) } catch {}
       // Update index meta
       const meta: ChatMeta = {
         caseId,

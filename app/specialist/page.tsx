@@ -1,49 +1,64 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Bell, Clock, Search } from "lucide-react"
+import { ArrowLeft, Bell, Clock, Search } from "lucide-react"
 import Link from "next/link"
 
-type ChatMeta = { caseId: string; status: "waiting" | "ongoing" | "ended"; createdAt: number; mode?: "self" | "other"; lastMessageAt?: number; completed?: any; closed?: boolean }
+type ChatMeta = { caseId: string; status?: string; createdAt?: number }
 
 export default function SpecialistDashboard() {
-  const [cases, setCases] = useState<ChatMeta[]>([])
-
-  const CHAT_INDEX = "contactSpecialist.chats"
-
-  useEffect(() => {
+  // load chats from localStorage (keeps previous mock for fallback)
+  const casesFromStorage = (() => {
     try {
-      const raw = localStorage.getItem(CHAT_INDEX)
-      const parsed = raw ? (JSON.parse(raw) as ChatMeta[]) : []
-      // sort by lastMessageAt desc
-      parsed.sort((a, b) => (b.lastMessageAt || b.createdAt) - (a.lastMessageAt || a.createdAt))
-      setCases(parsed)
+      const raw = typeof window !== "undefined" ? localStorage.getItem("contactSpecialist.chats") : null
+      if (!raw) return []
+      return JSON.parse(raw) as ChatMeta[]
     } catch {
-      setCases([])
+      return []
     }
-  }, [])
+  })()
 
-  function statusLabel(s: ChatMeta["status"]) {
+  const cases = casesFromStorage.length
+    ? casesFromStorage
+    : [
+        { caseId: "SAFE-2024-8821", status: "În așteptare", createdAt: Date.now() - 1000 * 60 * 10 },
+        { caseId: "SAFE-2024-8819", status: "În curs", createdAt: Date.now() - 1000 * 60 * 60 },
+        { caseId: "SAFE-2024-8804", status: "Încheiat", createdAt: Date.now() - 1000 * 60 * 60 * 24 },
+      ]
+
+  function statusLabel(s?: string) {
     switch (s) {
       case "waiting":
+      case "În așteptare":
         return "În așteptare"
       case "ongoing":
+      case "În curs":
         return "În curs"
       case "ended":
+      case "Încheiat":
         return "Încheiat"
       default:
-        return s
+        return s ?? "—"
     }
   }
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Specialist Header */}
       <header className="bg-primary text-primary-foreground p-4">
         <div className="container mx-auto flex justify-between items-center">
-          <h1 className="font-bold text-lg">Portal Specialist SafeSpace</h1>
+          <div className="flex items-center gap-4">
+            <Link href="/">
+              <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
+                <ArrowLeft className="h-5 w-5" />
+              </Button>
+            </Link>
+
+            <div>
+              <h1 className="font-bold text-lg">Portal Specialist SafeSpace</h1>
+            </div>
+          </div>
+
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
               <Bell className="h-5 w-5" />
@@ -54,6 +69,29 @@ export default function SpecialistDashboard() {
       </header>
 
       <div className="container mx-auto p-4 md:p-8 space-y-8">
+        {/* Stats Overview */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Card>
+            <CardContent className="pt-6">
+              <div className="text-2xl font-bold text-primary">4</div>
+              <p className="text-sm text-muted-foreground">Cazuri Urgente în Așteptare</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6">
+              <div className="text-2xl font-bold">12</div>
+              <p className="text-sm text-muted-foreground">Conversații Active</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6">
+              <div className="text-2xl font-bold">98%</div>
+              <p className="text-sm text-muted-foreground">Rata de Răspuns</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Case Management */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold">Conversații</h2>
@@ -65,9 +103,7 @@ export default function SpecialistDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {cases.length === 0 && (
               <Card>
-                <CardContent>
-                  Nu există conversații încă.
-                </CardContent>
+                <CardContent>Nu există conversații încă.</CardContent>
               </Card>
             )}
 
@@ -78,9 +114,9 @@ export default function SpecialistDashboard() {
                     <div>
                       <div className="font-semibold">Caz {c.caseId}</div>
                       <div className="text-sm text-muted-foreground">
-                        Tip: {c.mode === "self" ? "Pentru pacient" : c.mode === "other" ? "Pentru altă persoană" : "—"}
+                        Tip: {c.status ?? "—"}
                       </div>
-                      <div className="text-xs mt-1 text-muted-foreground">Ultim mesaj: {c.lastMessageAt ? new Date(c.lastMessageAt).toLocaleString() : new Date(c.createdAt).toLocaleString()}</div>
+                      <div className="text-xs mt-1 text-muted-foreground">Creat: {c.createdAt ? new Date(c.createdAt).toLocaleString() : "—"}</div>
                     </div>
 
                     <div className="text-right">

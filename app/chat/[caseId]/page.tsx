@@ -141,6 +141,39 @@ export default function ChatInterface({ params }: { params: Promise<{ caseId: st
     }
   }, [caseId])
 
+  // storage event listener — merge updates from other tabs
+  useEffect(() => {
+    function onStorage(e: StorageEvent) {
+      if (!caseId) return
+      if (!e.key) return
+
+      // If the per-case storage changed, merge messages
+      if (e.key === CHAT_PREFIX + caseId || e.key === LEGACY_KEY) {
+        if (!e.newValue) return
+        try {
+          const parsed = JSON.parse(e.newValue) as SavedChat
+          setMessages((s) => mergeMessages(s, (parsed.messages || []).sort((a, b) => a.id - b.id)))
+          setClosed(!!parsed.closed)
+        } catch {}
+        return
+      }
+
+      // If index changed and contains metadata for this case, update closed/status
+      if (e.key === CHAT_INDEX) {
+        try {
+          const idx = JSON.parse(e.newValue || "[]") as ChatMeta[]
+          const found = idx.find((c) => c.caseId === caseId)
+          if (found) {
+            setClosed(!!found.closed)
+          }
+        } catch {}
+      }
+    }
+
+    window.addEventListener("storage", onStorage)
+    return () => window.removeEventListener("storage", onStorage)
+  }, [caseId])
+
   // persist messages and update index on change — merge with existing stored messages
   useEffect(() => {
     if (!caseId) return
