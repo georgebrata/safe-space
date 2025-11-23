@@ -1,14 +1,42 @@
+"use client"
+
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Bell, Clock, Search } from "lucide-react"
+import Link from "next/link"
+
+type ChatMeta = { caseId: string; status: "waiting" | "ongoing" | "ended"; createdAt: number; mode?: "self" | "other"; lastMessageAt?: number; completed?: any; closed?: boolean }
 
 export default function SpecialistDashboard() {
-  // Mock data for specialist view
-  const cases = [
-    { id: "SAFE-2024-8821", risk: "Ridicat", status: "În așteptare", time: "acum 10 min" },
-    { id: "SAFE-2024-8819", risk: "Critic", status: "Activ", time: "acum 1 oră" },
-    { id: "SAFE-2024-8804", risk: "Moderat", status: "În revizuire", time: "acum 1 zi" },
-  ]
+  const [cases, setCases] = useState<ChatMeta[]>([])
+
+  const CHAT_INDEX = "contactSpecialist.chats"
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(CHAT_INDEX)
+      const parsed = raw ? (JSON.parse(raw) as ChatMeta[]) : []
+      // sort by lastMessageAt desc
+      parsed.sort((a, b) => (b.lastMessageAt || b.createdAt) - (a.lastMessageAt || a.createdAt))
+      setCases(parsed)
+    } catch {
+      setCases([])
+    }
+  }, [])
+
+  function statusLabel(s: ChatMeta["status"]) {
+    switch (s) {
+      case "waiting":
+        return "În așteptare"
+      case "ongoing":
+        return "În curs"
+      case "ended":
+        return "Încheiat"
+      default:
+        return s
+    }
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -26,78 +54,43 @@ export default function SpecialistDashboard() {
       </header>
 
       <div className="container mx-auto p-4 md:p-8 space-y-8">
-        {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Card>
-            <CardContent className="pt-6">
-              <div className="text-2xl font-bold text-primary">4</div>
-              <p className="text-sm text-muted-foreground">Cazuri Urgente în Așteptare</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="text-2xl font-bold">12</div>
-              <p className="text-sm text-muted-foreground">Conversații Active</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="text-2xl font-bold">98%</div>
-              <p className="text-sm text-muted-foreground">Rata de Răspuns</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Case Management */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold">Cazuri Primite</h2>
+            <h2 className="text-xl font-bold">Conversații</h2>
             <Button variant="outline" size="sm">
               <Search className="h-4 w-4 mr-2" /> Filtrează
             </Button>
           </div>
 
-          <div className="bg-card rounded-lg border overflow-hidden">
-            <table className="w-full text-sm text-left">
-              <thead className="bg-secondary/20 text-muted-foreground">
-                <tr>
-                  <th className="p-4">ID Caz</th>
-                  <th className="p-4">Nivel Risc</th>
-                  <th className="p-4">Status</th>
-                  <th className="p-4">Timp</th>
-                  <th className="p-4">Acțiune</th>
-                </tr>
-              </thead>
-              <tbody>
-                {cases.map((c) => (
-                  <tr key={c.id} className="border-t hover:bg-secondary/5">
-                    <td className="p-4 font-medium">{c.id}</td>
-                    <td className="p-4">
-                      <span
-                        className={`px-2 py-1 rounded-full text-xs font-bold ${
-                          c.risk === "Critic"
-                            ? "bg-destructive/10 text-destructive"
-                            : c.risk === "Ridicat"
-                              ? "bg-accent/20 text-accent-foreground"
-                              : "bg-secondary/20 text-secondary-foreground"
-                        }`}
-                      >
-                        {c.risk}
-                      </span>
-                    </td>
-                    <td className="p-4 text-muted-foreground">{c.status}</td>
-                    <td className="p-4 text-muted-foreground flex items-center gap-1">
-                      <Clock className="h-3 w-3" /> {c.time}
-                    </td>
-                    <td className="p-4">
-                      <Button size="sm" variant="outline">
-                        Revizuiește
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {cases.length === 0 && (
+              <Card>
+                <CardContent>
+                  Nu există conversații încă.
+                </CardContent>
+              </Card>
+            )}
+
+            {cases.map((c) => (
+              <Link key={c.caseId} href={`/chat/${c.caseId}?role=specialist`} className="block">
+                <Card className="hover:shadow-lg transition">
+                  <CardContent className="flex items-center justify-between">
+                    <div>
+                      <div className="font-semibold">Caz {c.caseId}</div>
+                      <div className="text-sm text-muted-foreground">
+                        Tip: {c.mode === "self" ? "Pentru pacient" : c.mode === "other" ? "Pentru altă persoană" : "—"}
+                      </div>
+                      <div className="text-xs mt-1 text-muted-foreground">Ultim mesaj: {c.lastMessageAt ? new Date(c.lastMessageAt).toLocaleString() : new Date(c.createdAt).toLocaleString()}</div>
+                    </div>
+
+                    <div className="text-right">
+                      <div className="text-sm font-bold">{statusLabel(c.status)}</div>
+                      <div className="text-xs text-muted-foreground mt-2">Deschide conversația</div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
           </div>
         </div>
       </div>

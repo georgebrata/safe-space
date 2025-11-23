@@ -34,9 +34,9 @@ export default function Home() {
       {/* Hero Section */}
       <section className="bg-primary/10 py-16 md:py-24">
         <div className="container mx-auto px-4 text-center max-w-3xl">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary tracking-tight">Un loc sigur, oricând ai nevoie</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary tracking-tight">Suport de specialitate pentru prevenirea violenței domestice</h1>
           <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-            Dacă ești îngrijorată pentru siguranța ta sau a unui apropiat, poți începe aici. Răspunde la un scurt chestionar pentru a înțelege nivelul de risc și găsește rapid linii de ajutor și servicii locale.
+            Dacă ești îngrijorat pentru siguranța ta sau a unui apropiat, poți începe aici. Răspunde la un scurt chestionar pentru a înțelege nivelul de risc și găsește rapid linii de ajutor și servicii locale.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -63,32 +63,32 @@ export default function Home() {
       {/* Quick Actions Grid */}
       <section className="py-12 container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Link href="/risk-form?mode=self">
+          <Link href="/contact-specialist">
             <Card className="group relative overflow-hidden border-primary/20 h-full transition-all duration-300 hover:scale-105 hover:border-primary hover:shadow-lg cursor-pointer">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <CardHeader className="relative z-10">
                 <CardTitle className="flex items-center gap-3">
                   <HeartHandshake className="h-6 w-6 text-primary" />
-                  Evaluare rapidă
+                  Vorbește cu un specialist
                 </CardTitle>
               </CardHeader>
               <CardContent className="relative z-10">
-                Un scurt chestionar care te ajută să înțelegi dacă ești în pericol și ce pași poți urma imediat.
+                Conectează-te în siguranță cu un specialist pentru evaluare, ghidare și sprijin. Chat-ul este privat; dacă este necesar, vei fi rugat(ă) să completezi evaluarea rapidă înainte de a începe conversația.
               </CardContent>
             </Card>
           </Link>
 
-          <Link href="/risk-form?mode=other">
+          <Link href="/community">
             <Card className="group relative overflow-hidden border-primary/20 h-full transition-all duration-300 hover:scale-105 hover:border-secondary hover:shadow-lg cursor-pointer">
               <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 via-accent/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <CardHeader className="relative z-10">
                 <CardTitle className="flex items-center gap-3">
                   <Users className="h-6 w-6 text-primary" />
-                  Susține pe cineva
+                  Cumunitate
                 </CardTitle>
               </CardHeader>
               <CardContent className="relative z-10">
-                Ghid practic pentru a recunoaște semnele, a oferi sprijin și a direcționa către ajutor profesionist.
+                Un spațiu sigur unde poți împărtăși gânduri, experiențe sau încurajări. Alătură-te comunității și vezi ce au postat alții.
               </CardContent>
             </Card>
           </Link>
