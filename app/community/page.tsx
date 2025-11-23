@@ -6,7 +6,7 @@ import { addPost, setFilter, toggleLike } from "@/redux/slices/communitySlice"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
-import { Lock, Globe, Heart, Send } from "lucide-react"
+import { Lock, Globe, Heart, Send, Link } from "lucide-react"
 
 export default function CommunityPage() {
   const dispatch = useAppDispatch()
@@ -41,6 +41,15 @@ export default function CommunityPage() {
 
   return (
     <div className="min-h-screen bg-background pb-20">
+      {/* Navbar */}
+      <header className="border-b bg-background sticky top-0 z-40">
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          <a href="/" className="flex items-center gap-2 text-dark font-bold text-xl">
+            <img src="./logo.png" alt="SafeSpace" className="h-8 w-8" />
+            <span>SafeSpace</span>
+          </a>
+        </div>
+      </header> 
       <div className="container mx-auto max-w-2xl px-4 py-6 space-y-6">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold">{filter === "private" ? "Jurnal privat" : "Comunitate"}</h1>

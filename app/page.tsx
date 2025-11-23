@@ -13,14 +13,14 @@ export default function Home() {
             <img src="./logo.png" alt="SafeSpace" className="h-8 w-8" />
             <span>SafeSpace</span>
           </a>
-          <nav className="hidden md:flex gap-6">
+          {/* <nav className="hidden md:flex gap-6">
             <Link href="/resources" className="text-sm font-medium hover:text-primary hover:bg-primary/10 rounded-md px-2 py-1">
               Resurse
             </Link>
             <Link href="/community" className="text-sm font-medium hover:text-primary hover:bg-primary/10 rounded-md px-2 py-1">
               Comunitate
             </Link>
-          </nav>
+          </nav> */}
           <div className="flex gap-2">
             <Link href="/specialist">
               <Button variant="ghost" size="sm">
@@ -36,7 +36,7 @@ export default function Home() {
         <div className="container mx-auto px-4 text-center max-w-3xl">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary tracking-tight">Suport de specialitate pentru prevenirea violenței domestice</h1>
           <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-            Dacă ești îngrijorat pentru siguranța ta sau a unui apropiat, poți începe aici. Răspunde la un scurt chestionar pentru a înțelege nivelul de risc și găsește rapid linii de ajutor și servicii locale.
+            Dacă ești îngrijorat pentru siguranța ta sau a unui apropiat, poți începe aici.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -84,7 +84,7 @@ export default function Home() {
               <CardHeader className="relative z-10">
                 <CardTitle className="flex items-center gap-3">
                   <Users className="h-6 w-6 text-primary" />
-                  Cumunitate
+                  Comunitate
                 </CardTitle>
               </CardHeader>
               <CardContent className="relative z-10">
@@ -99,7 +99,7 @@ export default function Home() {
               <CardHeader className="relative z-10">
                 <CardTitle className="flex items-center gap-3">
                   <FileText className="h-6 w-6 text-primary" />
-                  Linii de ajutor & Resurse
+                  Resurse educaționale
                 </CardTitle>
               </CardHeader>
               <CardContent className="relative z-10">

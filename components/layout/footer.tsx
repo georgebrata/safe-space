@@ -16,11 +16,6 @@ export const Footer = () => {
       icon: Users,
     },
     {
-      title: "Obține Ajutor",
-      href: "/help",
-      icon: HelpCircle,
-    },
-    {
       title: "Verificare Siguranță",
       href: "/risk-form",
       icon: HeartHandshake,

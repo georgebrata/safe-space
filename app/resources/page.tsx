@@ -191,10 +191,18 @@ export default function ResourcesPage() {
 
 
   return (
-    <div className="min-h-screen bg-background p-4 md:p-8">
+    <div className="min-h-screen bg-background ">
+      <header className="border-b bg-background sticky top-0 z-40">
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          <a href="/" className="flex items-center gap-2 text-dark font-bold text-xl">
+            <img src="./logo.png" alt="SafeSpace" className="h-8 w-8" />
+            <span>SafeSpace</span>
+          </a>
+        </div>
+      </header> 
       <div className="container mx-auto max-w-4xl space-y-8">
         <div className="space-y-4 text-center md:text-left">
-          <h1 className="text-3xl font-bold text-primary">
+          <h1 className="text-3xl font-bold text-primary mt-4">
             Resurse
           </h1>
           <p className="text-muted-foreground max-w-2xl">
