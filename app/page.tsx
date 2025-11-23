@@ -47,7 +47,7 @@ export default function Home() {
             </Link>
             <Link href="/resources">
               <Button size="lg" variant="outline" className="w-full sm:w-auto text-lg h-14 px-8 bg-transparent">
-                Vezi Resurse
+                Ce ar trebui să știu?
               </Button>
             </Link>
           </div>
