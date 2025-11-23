@@ -32,9 +32,9 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="bg-secondary/30 py-16 md:py-24">
+      <section className="bg-primary/10 py-16 md:py-24">
         <div className="container mx-auto px-4 text-center max-w-3xl">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground tracking-tight">Un loc sigur, oricând ai nevoie</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary tracking-tight">Un loc sigur, oricând ai nevoie</h1>
           <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
             Dacă ești îngrijorată pentru siguranța ta sau a unui apropiat, poți începe aici. Răspunde la un scurt chestionar pentru a înțelege nivelul de risc și găsește rapid linii de ajutor și servicii locale.
           </p>

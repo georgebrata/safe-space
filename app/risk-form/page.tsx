@@ -332,11 +332,7 @@ export default function RiskFormPage() {
                                     Resetează
                                 </Button>
 
-                                <Button type="submit" disabled={answers[currentQuestion.id] == null}>
-                                    {currentStep < total - 1
-                                        ? "Următorul"
-                                        : "Vezi rezultatele"}
-                                </Button>
+                                {/* NEXT button intentionally removed — selection auto-advances */}
                             </div>
                         </div>
                     </form>
