@@ -1,20 +1,23 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, JetBrains_Mono } from "next/font/google"
+import { Unbounded, Open_Sans } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { ReduxProvider } from "@/redux/provider"
 import { QuickExitButton } from "@/components/layout/quick-exit-button"
 import { Footer } from "@/components/layout/footer"
 
-const inter = Inter({ 
+// Load fonts and expose CSS variables
+const openSans = Open_Sans({
   subsets: ["latin"],
+  weight: ["300", "400", "600", "700"],
   variable: "--font-sans",
   display: "swap",
 })
-const jetbrainsMono = JetBrains_Mono({ 
+const unbounded = Unbounded({
   subsets: ["latin"],
-  variable: "--font-mono",
+  weight: ["400", "700"],
+  variable: "--font-head",
   display: "swap",
 })
 
@@ -48,7 +51,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ro">
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased flex flex-col min-h-screen`}>
+      <body className={`${openSans.variable} ${unbounded.variable} antialiased flex flex-col min-h-screen`}>
         <ReduxProvider>
           <main className="pb-24 md:pb-0 flex-1">{children}</main>
           <Footer />

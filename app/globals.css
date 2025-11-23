@@ -181,3 +181,32 @@
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
+
+/* Fonts: use variables injected by next/font (see app/layout.tsx) */
+/* Ensure these rules are placed after any reset/base rules in globals.css */
+
+:root {
+  /* Fallback families in case fonts fail to load */
+  --font-sans-fallback: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  --font-head-fallback: "Unbounded", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+body {
+  /* Use the CSS variable from next/font; fallback to generic stack */
+  font-family: var(--font-sans, var(--font-sans-fallback));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings: Unbounded for a distinctive, friendly heading style */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-head, var(--font-head-fallback));
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+
+/* If any utility class relies on .font-sans, update it to use the variable (optional) */
+.font-sans {
+  font-family: var(--font-sans, var(--font-sans-fallback));
+}
