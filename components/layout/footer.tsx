@@ -39,8 +39,8 @@ export const Footer = () => {
       icon: Phone,
     },
     {
-      title: "Linia Copilului",
-      href: "tel:116111",
+      title: "Numărul Unic 119",
+      href: "tel:119",
       icon: Phone,
     },
   ]

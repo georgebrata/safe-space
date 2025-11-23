@@ -18,7 +18,7 @@ export default function HelpGateway() {
       <div className="max-w-md w-full space-y-8">
         <div className="text-center space-y-2">
           <h1 className="text-3xl font-bold">Verificare Siguranță</h1>
-          <p className="text-muted-foreground">Înainte de a începe, trebuie să știm dacă ești în pericol imediat.</p>
+          <p className="text-muted-foreground">Înainte de a începe, <br/> trebuie să știm dacă ești în pericol imediat.</p>
         </div>
 
         <Card className="border-destructive/50 shadow-lg">
@@ -30,7 +30,7 @@ export default function HelpGateway() {
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="text-center text-sm mb-6">
-              Ești amenințată, rănită sau îți este teamă pentru siguranța ta imediată?
+             Îți este teamă pentru siguranța ta?
             </p>
 
             <Button
@@ -40,7 +40,7 @@ export default function HelpGateway() {
               onClick={handleUrgent}
             >
               <PhoneCall className="mr-2 h-6 w-6" />
-              DA - Sună 112
+              Sună linie de urgență
             </Button>
 
             <Link href="/risk-form" className="block w-full">

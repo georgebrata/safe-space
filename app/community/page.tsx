@@ -124,11 +124,11 @@ export default function CommunityPage() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-muted-foreground hover:text-red-500"
+                    className="text-muted-foreground hover:text-red-500 hover:bg-light"
                     onClick={() => dispatch(toggleLike(post.id))}
                   >
                     <Heart className={`h-4 w-4 mr-2 ${post.likes > 0 ? "fill-current text-red-500" : ""}`} />
-                    {post.likes} Sprijin
+                    {post.likes} pupici
                   </Button>
                 )}
               </CardFooter>
